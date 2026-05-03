@@ -1,0 +1,111 @@
+*gitlab-review.nvim.txt*   Gitlab MR code review without any extras. For minimalism obsessed people.
+
+Author:   cherryramatisdev
+License:  MIT
+Homepage: https://github.com/cherryramatisdev/gitlab-review.nvim
+
+==============================================================================
+Table of Contents                              *gitlab-review.table-of-contents*
+
+  - Overview                                        |gitlab-review.overview|
+  - Requirements                                    |gitlab-review.requirements|
+  - Features                                        |gitlab-review.features|
+  - Installation                                    |gitlab-review.installation|
+  - Setup                                           |gitlab-review.setup|
+  - Configuration                                   |gitlab-review.configuration|
+  - API                                             |gitlab-review.api|
+
+==============================================================================
+1. Requirements                               *gitlab-review.requirements*
+
+gitlab-review.nvim currently requires the `glab` CLI to be installed and
+authenticated on your system. This is a temporary dependency — future versions
+will integrate directly with the GitLab API, removing the need for `glab`.
+
+  - `glab` CLI: https://gitlab.com/gitlab-org/cli
+
+==============================================================================
+2. Overview                                   *gitlab-review.overview*
+
+gitlab-review.nvim is a NeoVim plugin that provides a minimal and practical way
+to manage the GitLab merge request review process.
+
+Design principles~
+- Clean API that can be attached to any diffing plugin (or used standalone)
+- Doesn't interfere with your workflow — mount your own workflow
+- Straightforward and minimal API integration, no complex UIs
+- No dependencies
+
+==============================================================================
+3. Features                                   *gitlab-review.features*
+
+1. Creating a new regular comment for the current line or visual selection.
+
+2. Creating a new suggestion comment for the current line or visual selection.
+
+3. Listing unresolved threads/discussions with the ability to:
+   - Reply to any comment in the hierarchy
+   - Resolve a thread/discussion from the root comment
+
+==============================================================================
+4. Installation                               *gitlab-review.installation*
+
+Using `vim.pack` (or your favorite package manager):
+>lua
+    vim.pack.add({
+        "https://github.com/cherryramatisdev/gitlab-review.nvim"
+    })
+<
+
+Note: Optionally, you can use |diffs.nvim| for a better experience with the
+`:Greview` command. See https://github.com/barrettruth/diffs.nvim
+
+==============================================================================
+5. Setup                                      *gitlab-review.setup*
+
+Call the `setup()` function after loading the plugin:
+>lua
+    require'gitlab-review'.setup {
+        default_keybindings = true,
+    }
+<
+
+==============================================================================
+6. Configuration                              *gitlab-review.configuration*
+
+The `setup()` function accepts the following options:
+
+*gitlab-review.configuration*
+    `default_keybindings` (boolean, default: false)
+    Enable the default keybindings for the plugin. When `true`, keybindings for
+    commenting, suggesting, and listing discussions are automatically set up.
+    `verbose` (boolean, default: false)
+    Enable debug output for API and CLI calls. When `true`, api/cli client
+    will print the outputs.
+
+==============================================================================
+7. API                                        *gitlab-review.api*
+
+All actions are available through the `gitlab-review.actions` module.
+
+comment()                                     *gitlab-review.actions.comment()*
+    Creates a regular (single-line) comment on the current line.
+
+multiline_comment()                       *gitlab-review.actions.multiline_comment()*
+    Creates a regular multi-line comment for the current visual selection.
+    Must be called in visual mode.
+
+suggestion()                                *gitlab-review.actions.suggestion()*
+    Creates a suggestion (code block) comment on the current line.
+
+multiline_suggestion()                *gitlab-review.actions.multiline_suggestion()*
+    Creates a suggestion comment for the current visual selection.
+    Must be called in visual mode.
+
+list_discussions()                    *gitlab-review.actions.list_discussions()*
+    Lists all unresolved threads/discussions for the current merge request.
+    From the list you can:
+    - Reply to any comment in the discussion hierarchy
+    - Resolve a thread/discussion from the root comment
+
+ vim:tw=78:ts=8:noet:ft=help:norl:

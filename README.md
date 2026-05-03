@@ -8,7 +8,7 @@ This [NeoVim](https://github.com/neovim/neovim) plugin is designed to offer a mi
 - Provide a clean API that can be attached with any other diffing plugin (or no plugin at all)
 - Don't get in your way too much, mount your own workflow
 - Straightforward and minimal API integration, not complex UIs
-- No dependencies
+- No external dependencies
 
 ## Features
 
@@ -18,6 +18,11 @@ This [NeoVim](https://github.com/neovim/neovim) plugin is designed to offer a mi
     1. Reply to any comment in the hierarchy
     2. Resolve a thread/discussion from the root comment.
 
+## Requirements
+
+- Minimum Nvim 0.12+ version
+- Treesitter with `diff` parser available
+- [`glab` CLI](https://gitlab.com/gitlab-org/cli) — **temporary**: future versions will integrate directly with the GitLab API, removing the need for `glab`
 
 ## Installation
 
